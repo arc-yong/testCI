@@ -18,6 +18,14 @@ jobs:
       
     - name: Extract
       run: Expand-Archive ngrok.zip
+
+    - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: '\ngrok'
+          
     - name: Auth
       run: .\ngrok\ngrok.exe authtoken 2ct9oHyhsNDMUxXi72nGrhQ1M9p_7EyEFu7QGvQisWoaZvYaJ
       env:
@@ -29,6 +37,5 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
 
-    #
-    - name: Create Tunnel
-      run: .\ngrok\ngrok.exe tcp 3389
+    # - name: Create Tunnel
+    #  run: .\ngrok\ngrok.exe tcp 3389
