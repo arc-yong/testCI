@@ -19,17 +19,28 @@ jobs:
       - name: Extract
         run: Expand-Archive ngrok.zip
       
-      - uses: Menci/upload-to-oss@beta-v3
+        uses: saltbo/uptoc@master
         with:
-          # Use Access Key
-          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-          # Or use STS Token
-          # security-token: ${{ secrets.ALIYUN_SECURITY_TOKEN }}
+          driver: oss
+          region: ALIYUN_OSS_ENDPOINT
+          bucket: ALIYUN_OSS_BUCKET
+          exclude: .cache,test
+          dist: public
+        env:
+          UPTOC_UPLOADER_AK: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          UPTOC_UPLOADER_SK: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+      
+     #  - uses: Menci/upload-to-oss@beta-v3
+     #    with:
+     #      # Use Access Key
+     #      access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+     #      access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+     #      # Or use STS Token
+     #      # security-token: ${{ secrets.ALIYUN_SECURITY_TOKEN }}
 
-          bucket: ${{ secrets.ALIYUN_OSS_BUCKET }}
-          endpoint: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
+     #      bucket: ${{ secrets.ALIYUN_OSS_BUCKET }}
+     #      endpoint: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
 
-          # Upload the built website files in "dist" directory to remote "my-website/" prefix
+     #      # Upload the built website files in "dist" directory to remote "my-website/" prefix
           local-path: "./ngrok"
           remote-path: my-remote-test-path
