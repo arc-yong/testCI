@@ -20,16 +20,33 @@ jobs:
         run: Expand-Archive ngrok.zip
       
       - name: upload to aliyun
-        uses: saltbo/uptoc@master
+      - uses: yizhoumo/setup-ossutil@v2
         with:
-          driver: oss
-          region: ALIYUN_OSS_ENDPOINT
-          bucket: ALIYUN_OSS_BUCKET
-          exclude: .cache,test
-          dist: "./ngrok"
-        env:
-          UPTOC_UPLOADER_AK: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          UPTOC_UPLOADER_SK: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          ## The version to download and use, or 'latest' for the latest version.
+          ossutil-version: '1.7.18'
+      
+          # The following parameters are (optionally) used to config the credential.
+          ## The endpoint of the region in which the bucket is located.
+          endpoint: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
+          ## The AccessKey ID of the credential.
+          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ## The AccessKey Secret of the credential.
+          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          ## The STS Token of the credential. Only required for temporary access.
+          ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
+
+      - run: ossutil cp -f file-to-upload.txt oss://arcsite-x-dev-app-package
+
+     #   uses: saltbo/uptoc@master
+     #   with:
+     #     driver: oss
+     #     region: ALIYUN_OSS_ENDPOINT
+     #     bucket: ALIYUN_OSS_BUCKET
+     #     exclude: .cache,test
+     #     dist: "./ngrok"
+     #   env:
+     #     UPTOC_UPLOADER_AK: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+     #     UPTOC_UPLOADER_SK: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
       
      #  - uses: Menci/upload-to-oss@beta-v3
      #    with:
