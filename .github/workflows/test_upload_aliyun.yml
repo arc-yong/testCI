@@ -19,7 +19,7 @@ jobs:
       - name: Extract
         run: Expand-Archive ngrok.zip
       
-      - uses: Menci/upload-to-oss@beta-v1
+      - uses: Menci/upload-to-oss@beta-v3
         with:
           # Use Access Key
           access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
