@@ -20,7 +20,7 @@ jobs:
         run: Expand-Archive ngrok.zip
       
       - name: config oss
-      - uses: yizhoumo/setup-ossutil@v2
+        uses: yizhoumo/setup-ossutil@v2
         with:
           ## The version to download and use, or 'latest' for the latest version.
           ossutil-version: '1.7.18'
