@@ -1,0 +1,37 @@
+name: upload aliyun
+
+on:
+  pull_request:
+    branches: [ ci ]
+  workflow_dispatch:
+  
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to OSS
+    runs-on: windows-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+      
+      - name: Download
+        run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+      
+      - name: Extract
+        run: Expand-Archive ngrok.zip
+      
+      - name: upload to aliyun
+      - uses: yizhoumo/setup-ossutil@v2
+        with:
+          ## The version to download and use, or 'latest' for the latest version.
+          ossutil-version: '1.7.18'
+      
+          # The following parameters are (optionally) used to config the credential.
+          ## The endpoint of the region in which the bucket is located.
+          endpoint: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
+          ## The AccessKey ID of the credential.
+          access-key-id: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+          ## The AccessKey Secret of the credential.
+          access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+          ## The STS Token of the credential. Only required for temporary access.
+          ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
+      - run: ossutil64.exe cp -f ./ngrok oss://arcsite-x-dev-app-package
