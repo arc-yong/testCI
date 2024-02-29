@@ -7,7 +7,7 @@ on:
   
 jobs:
   build-and-deploy:
-    name: Build and Deploy website to OSS
+    name: Build and Deploy to OSS
     runs-on: windows-latest
     steps:
       - name: Check out
@@ -19,6 +19,7 @@ jobs:
       - name: Extract
         run: Expand-Archive ngrok.zip
       
+      - name: upload to aliyun
         uses: saltbo/uptoc@master
         with:
           driver: oss
@@ -42,5 +43,5 @@ jobs:
      #      endpoint: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
 
      #      # Upload the built website files in "dist" directory to remote "my-website/" prefix
-          local-path: "./ngrok"
-          remote-path: my-remote-test-path
+     #     local-path: "./ngrok"
+     #     remote-path: my-remote-test-path
