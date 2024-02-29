@@ -25,7 +25,7 @@ jobs:
           region: ALIYUN_OSS_ENDPOINT
           bucket: ALIYUN_OSS_BUCKET
           exclude: .cache,test
-          dist: public
+          dist: "./ngrok"
         env:
           UPTOC_UPLOADER_AK: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           UPTOC_UPLOADER_SK: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
