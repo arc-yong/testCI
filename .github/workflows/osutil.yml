@@ -35,4 +35,4 @@ jobs:
           ## The STS Token of the credential. Only required for temporary access.
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: upload to aliyun
-        run: ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package
+        run: ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
