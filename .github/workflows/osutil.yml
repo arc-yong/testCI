@@ -49,3 +49,8 @@ jobs:
         id: step_two
         run: |
           printf '%s\n' "$action_state" # This will output 'yellow'
+      - name: Echo the value
+        id: step_three
+        run: |
+          echo '%s\n' "$action_state"
+        shell: bash
