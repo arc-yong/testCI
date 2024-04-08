@@ -36,6 +36,8 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
-          echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
-          echo "${{ env.DOWNLOAD_URL }}"
+          ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600
+    
+         # ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
+        # echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
+        # echo "${{ env.DOWNLOAD_URL }}"
