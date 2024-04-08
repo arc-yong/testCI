@@ -42,13 +42,13 @@ jobs:
         # echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
         # echo "${{ env.DOWNLOAD_URL }}"
         
-      - id: sets-a-secret
-        name: Generate, mask, and output a secret
+      - id: generate-url
+        name: Generate Url
         shell: pwsh
         run: |
-          Set-Variable -Name TheSecret -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)
-          "secret-number=$TheSecret" >> $env:GITHUB_OUTPUT
-      - name: Use that secret output (protected by a mask)
+          Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)
+          "download-url=$TheUrl" >> $env:GITHUB_OUTPUT
+      - name: print url
         shell: pwsh
         run: |
-          Write-Output "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
+          Write-Output "download url is: ${{ steps.generate-url.outputs.download-url= }}"
