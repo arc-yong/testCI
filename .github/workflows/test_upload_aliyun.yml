@@ -1,9 +1,7 @@
 name: upload aliyun
 
 on:
-  pull_request:
-    branches: [ ci ]
-
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     name: Build and Deploy to OSS
