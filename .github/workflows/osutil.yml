@@ -41,3 +41,11 @@ jobs:
          # ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
         # echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
         # echo "${{ env.DOWNLOAD_URL }}"
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> "$GITHUB_ENV"
+      - name: Use the value
+        id: step_two
+        run: |
+          printf '%s\n' "$action_state" # This will output 'yellow'
