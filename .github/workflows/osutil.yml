@@ -19,7 +19,7 @@ jobs:
       - name: Extract
         run: Expand-Archive curl.zip
       
-      - name: config oss
+      - name: Config OSS
         uses: yizhoumo/setup-ossutil@v2
         with:
           ## The version to download and use, or 'latest' for the latest version.
@@ -34,5 +34,14 @@ jobs:
           access-key-secret: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
           ## The STS Token of the credential. Only required for temporary access.
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
-      - name: upload to aliyun
+      - name: Upload to Aliyun
         run: ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
+
+      - name: Generate Singned Url
+        run: |
+          echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
+          
+      - name: Echo download url
+        id: step_two
+        run: |
+            echo "${{ env.DOWNLOAD_URL }}"
