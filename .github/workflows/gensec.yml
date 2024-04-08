@@ -8,7 +8,6 @@ jobs:
         shell: pwsh
         run: |
           Set-Variable -Name TheSecret -Value (Get-Random)
-          Write-Output "::add-mask::$TheSecret"
           "secret-number=$TheSecret" >> $env:GITHUB_OUTPUT
       - name: Use that secret output (protected by a mask)
         shell: pwsh
