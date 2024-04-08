@@ -41,16 +41,14 @@ jobs:
          # ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
         # echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
         # echo "${{ env.DOWNLOAD_URL }}"
-      - name: Set the value
-        id: step_one
+        
+      - id: sets-a-secret
+        name: Generate, mask, and output a secret
+        shell: pwsh
         run: |
-          echo "action_state=yellow" >> "$GITHUB_ENV"
-      - name: Use the value
-        id: step_two
+          Set-Variable -Name TheSecret -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)
+          "secret-number=$TheSecret" >> $env:GITHUB_OUTPUT
+      - name: Use that secret output (protected by a mask)
+        shell: pwsh
         run: |
-          printf '%s\n' "$action_state" # This will output 'yellow'
-      - name: Echo the value
-        id: step_three
-        run: |
-          echo '%s\n' "$action_state"
-        shell: bash
+          Write-Output "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
