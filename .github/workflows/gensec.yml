@@ -1,4 +1,5 @@
-on: push
+on:
+  workflow_dispatch:
 jobs:
   generate-a-secret-output:
     runs-on: ubuntu-latest
