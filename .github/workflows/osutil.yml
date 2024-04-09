@@ -47,8 +47,8 @@ jobs:
         shell: pwsh
         run: |
           Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)
-          "download-url=$TheUrl" >> $env:GITHUB_OUTPUT
+          "download-url=$TheUrl" >> $env:GITHUB_ENV
       - name: print url
         shell: pwsh
         run: |
-          Write-Output "download url is: ${{ steps.generate-url.outputs.download-url }}"
+          Write-Output "download url is: ${{ download-url }}"
