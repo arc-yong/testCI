@@ -20,7 +20,7 @@ jobs:
         run: Expand-Archive curl.zip
         
       - name: Zip
-        run: Compress-Archive -Path .curl/* -Destination myzip.zip
+        run: Compress-Archive -Path ./curl/* -Destination myzip.zip
         
       - name: Config OSS
         uses: yizhoumo/setup-ossutil@v2
