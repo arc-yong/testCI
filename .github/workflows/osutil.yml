@@ -18,7 +18,10 @@ jobs:
       
       - name: Extract
         run: Expand-Archive curl.zip
-      
+        
+      - name: Zip
+        run: Compress-Archive -Path .curl/* -Destination myzip.zip
+        
       - name: Config OSS
         uses: yizhoumo/setup-ossutil@v2
         with:
@@ -36,11 +39,7 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600 --loglevel=debug
-    
-         # ossutil cp -f --recursive ./curl oss://arcsite-x-dev-app-package/v1
-        # echo "DOWNLOAD_URL=$(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600)" >> $GITHUB_ENV
-        # echo "${{ env.DOWNLOAD_URL }}"
+          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v2
         
       - id: generate-url
         name: Generate Url
