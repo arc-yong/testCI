@@ -51,4 +51,4 @@ jobs:
       - name: print url
         shell: pwsh
         run: |
-          Write-Output "download url is: ${{ download-url }}"
+          Write-Output "download url is: $download-url"
