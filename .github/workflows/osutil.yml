@@ -39,7 +39,8 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v2
+          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v3/myzip.zip
+          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v4/
         
       - id: generate-url
         name: Generate Url
