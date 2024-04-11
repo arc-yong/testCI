@@ -18,9 +18,16 @@ jobs:
       
       - name: Extract
         run: Expand-Archive curl.zip
-        
+      
+      - name: TimeStamp
+        run: |
+          
+          
       - name: Zip
-        run: Compress-Archive -Path ./curl/* -Destination myzip.zip
+        run: | 
+          Set-Variable -Name FileName -Value myzip$(date '+%y%m%d%H%M').zip
+          Compress-Archive -Path ./curl/* -Destination $FileName
+          "file_name=$FileName" >> $env:GITHUB_ENV
         
       - name: Config OSS
         uses: yizhoumo/setup-ossutil@v2
@@ -39,14 +46,13 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v3/myzip.zip
-          ossutil cp -f --recursive myzip.zip oss://arcsite-x-dev-app-package/v4/
+          ossutil cp -f $file_name oss://arcsite-x-dev-app-package/test/
         
       - id: generate-url
         name: Generate Url
         shell: pwsh
         run: |
-          Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README.txt --timeout 3600 | head -n 1)
+          Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README_notexit.txt --timeout 3600 | head -n 1)
           "download_url=$TheUrl" >> $env:GITHUB_ENV
       - name: print url
         shell: pwsh
