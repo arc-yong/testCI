@@ -21,7 +21,7 @@ jobs:
       
       - name: Remove One File
         run: |
-          rm ./curl/README.txt
+          rm ./curl/curl-8.6.0_3-win64-mingw/README.txt
           
       - name: Zip
         run: | 
