@@ -19,9 +19,9 @@ jobs:
       - name: Extract
         run: Expand-Archive curl.zip
       
-      - name: TimeStamp
+      - name: Remove One File
         run: |
-          
+          rm ./curl/README.txt
           
       - name: Zip
         run: | 
