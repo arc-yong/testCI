@@ -46,7 +46,7 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil cp -f $env:file_name oss://arcsite-x-dev-app-package/test/1.0.0/windows/internal
+          ossutil cp -f $env:file_name oss://arcsite-x-dev-app-package/test/1.0.0/windows/internal/
         
       - id: generate-url
         name: Generate Url
