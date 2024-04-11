@@ -46,13 +46,13 @@ jobs:
           ## sts-token: ${{ secrets.OSS_STS_TOKEN }}
       - name: Upload to Aliyun
         run: |
-          ossutil cp -f $env:file_name oss://arcsite-x-dev-app-package/test/
+          ossutil cp -f $env:file_name oss://arcsite-x-dev-app-package/test/1.0.0/windows/internal
         
       - id: generate-url
         name: Generate Url
         shell: pwsh
         run: |
-          Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/test/${{ env.file_name }} --timeout 3600 | head -n 1)
+          Set-Variable -Name TheUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/test/1.0.0/windows/internal/${{ env.file_name }} --timeout 3600 | head -n 1)
           "download_url=$TheUrl" >> $env:GITHUB_ENV
           Set-Variable -Name NotExistUrl -Value $(ossutil sign oss://arcsite-x-dev-app-package/v1/curl-8.6.0_3-win64-mingw/README_notexit.txt --timeout 3600 | head -n 1)
           "notexit_url=$NotExistUrl" >> $env:GITHUB_ENV
